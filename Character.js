@@ -25,7 +25,7 @@ class Character {
     }
     
     levelUp () {
-        if (this.health <= 0) {
+        if (this.health > 0) {
                 this.level += 1;
                 this.attack = Math.round(this.attack * 1.2);
                 this.defence = Math.round(this.defence * 1.2);
@@ -37,7 +37,7 @@ class Character {
     
     damage(points) {
         if (this.health > 0) {
-            health -= points * (1 - defence / 100);
+            this.health -= points * (1 - this.defence / 100);
         }
         if (this.health < 0) {
             this.health = 0;
@@ -45,3 +45,5 @@ class Character {
     }
 
 }
+
+module.exports = Character;

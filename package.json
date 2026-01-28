@@ -1,12 +1,13 @@
 {
-  "name": "methods",
+  "name": "character-test",
   "version": "1.0.0",
+  "description": "Тестирование персонажей",
   "main": "Character.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "coverage": "jest --coverage"
   },
-  "keywords": [],
+  "keywords": ["test", "character", "jest"],
   "author": "",
-  "license": "ISC",
-  "description": ""
+  "license": "ISC"
 }
