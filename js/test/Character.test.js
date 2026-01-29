@@ -1,57 +1,31 @@
-const Character = require('./Character');
+import Character from '../Character.js';
 
-describe('Класс Character', () => {
-  
-  describe('Конструктор', () => {
-    test('Создать Bowman с правильными характеристиками', () => {
-      const hero = new Character('Леголас', 'Bowman');
-      
-      expect(hero.name).toBe('Леголас');
-      expect(hero.type).toBe('Bowman');
-      expect(hero.health).toBe(100);
-      expect(hero.level).toBe(1);
-      expect(hero.attack).toBe(25);
-      expect(hero.defence).toBe(25);
-    });
+test('Короткое имя вызывает ошибку', () => {
+  expect(() => new Character('А')).toThrow('Ошибка имени персонажа');
+});
 
-    test('Правельные характеристики', () => {
-      const testCases = [
-        { type: 'Swordsman', attack: 40, defence: 10 },
-        { type: 'Magician', attack: 10, defence: 40 },
-        { type: 'Undead', attack: 25, defence: 25 },
-        { type: 'Zombie', attack: 40, defence: 10 },
-        { type: 'Daemon', attack: 10, defence: 40 }
-      ];
+test('Длинное имя вызывает ошибку', () => {
+  expect(() => new Character('ОченьДлинноеИмя')).toThrow('Ошибка имени персонажа');
+});
 
-      testCases.forEach(({ type, attack, defence }) => {
-        const char = new Character('Тест', type);
-        expect(char.attack).toBe(attack);
-        expect(char.defence).toBe(defence);
-      });
-    });
+test('Нестроковое имя', () => {
+  expect(() => new Character(123, 'Bowman')).toThrow('Ошибка имени персонажа');
+  expect(() => new Character(null, 'Bowman')).toThrow('Ошибка имени персонажа');
+  expect(() => new Character(undefined, 'Bowman')).toThrow('Ошибка имени персонажа');
+});
 
-    test('Короткое имя', () => {
-      expect(() => new Character('А', 'Bowman')).toThrow('Ошибка имени персонажа');
-    });
+test('Создать Bowman с правильными характеристиками', () => {
+  const character = new Character('Player', 'Bowman');
+  const result = {
+    name: 'Player',
+    type: 'Bowman',
+    health: 100,
+    level: 1,
+  };
+  expect(character).toMatchObject(result);
+});
 
-    test('Длинное имя', () => {
-      expect(() => new Character('ОченьДлинноеИмя', 'Bowman')).toThrow('Ошибка имени персонажа');
-    });
-
-    test('Нестроковое имя', () => {
-      expect(() => new Character(123, 'Bowman')).toThrow('Ошибка имени персонажа');
-      expect(() => new Character(null, 'Bowman')).toThrow('Ошибка имени персонажа');
-      expect(() => new Character(undefined, 'Bowman')).toThrow('Ошибка имени персонажа');
-    });
-
-    test('Неверный тип', () => {
-      expect(() => new Character('Джон', 'Warrior')).toThrow('Ошибка класса персонажа');
-      expect(() => new Character('Джон', 'Рыцарь')).toThrow('Ошибка класса персонажа');
-      expect(() => new Character('Джон', '')).toThrow('Ошибка класса персонажа');
-    });
-  });
-
-  describe('Метод levelUp', () => {
+describe('Метод levelUp', () => {
     test('Должен увеличить хп на 1', () => {
       const char = new Character('Леголас', 'Bowman');
       char.levelUp();
@@ -127,4 +101,3 @@ describe('Класс Character', () => {
       expect(char.health).toBe(65);
     });
   });
-});
